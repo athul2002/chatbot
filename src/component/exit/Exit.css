@@ -1,0 +1,13 @@
+.exitContainer{
+    color: #0d1b2a;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.exitContainer > button{
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #1b263b;
+    font: 300 150% "Roboto";
+    color: #e0e1dd;
+}
