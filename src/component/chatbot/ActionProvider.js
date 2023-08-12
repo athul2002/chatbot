@@ -1,31 +1,36 @@
-// ActionProvider starter code
-import Name from "../options/Name";
 class ActionProvider {
     constructor(
      createChatBotMessage,
      setStateFunc,
+     createClientMessage,
+
    ) {
      this.createChatBotMessage = createChatBotMessage;
      this.setState = setStateFunc;
+     this.createClientMessage=createClientMessage;
    }
 
-   greet=()=>{
-    const message=this.createChatBotMessage("hello");
+   handleGotIt=()=>{
+    let message= this.createClientMessage("Got It");
+    this.addMessageToState(message);
+    message= this.createChatBotMessage("Enter your Name");
     this.addMessageToState(message);
    }
-   handleGotIt=()=>{
-    const message=this.createChatBotMessage("Enter your Name");
+   ErrorMessg=()=>{
+    const message= this.createChatBotMessage("Invalid Message",{widget:"options"});
     this.addMessageToState(message);
    }
    Name=()=>{
     const message=this.createChatBotMessage("Select You Age",{widget:"age"});
     this.addMessageToState(message);
    }
-   agePage=()=>{
-    
-    const message=this.createChatBotMessage("Thank you. In 5 seconds, bot will exit",{widget:"exitPage"});
+   agePage=(age)=>{
+    let message=this.createClientMessage(`${age}`)
+    this.addMessageToState(message);
+    message=this.createChatBotMessage("Thank you. In 5 seconds, bot will exit",{widget:"exitPage"});
     this.addMessageToState(message);
    }
+
    addMessageToState=(message)=>{
     this.setState((prevState)=>({
       ...prevState,messages:[...prevState.messages,message],
