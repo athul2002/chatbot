@@ -1,4 +1,3 @@
-// MessageParser starter code
 class MessageParser {
     constructor(actionProvider, setStateFunc) {
       this.actionProvider = actionProvider;
@@ -6,17 +5,20 @@ class MessageParser {
     }
   
     parse(message) {
+
       const lowercase=message.toLowerCase();
-
-      if(lowercase.includes("Got It!"))
+      const len=this.setState.messages.length
+      if((len<2 )|| (len>2 && this.setState.messages[len-1].message !== "Enter your Name"))
       {
-        this.actionProvider.greet();
+        return this.actionProvider.ErrorMessg();
+      }
+      if(lowercase.length>0)
+      {
+        return this.actionProvider.Name(lowercase);
       }
 
-      if(lowercase!=="Got It")
-      {
-        this.actionProvider.Name();
-      }
+        return this.actionProvider.ErrorMessg();
+
     }
   }
   
