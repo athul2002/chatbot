@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useState } from "react";
 
 import './Options.css'
 
 const Options=(props)=>{
-    const options=[
-        {text:"Got It!",handler:props.actionProvider.handleGotIt,id:1}
-    ]
+    const [show,setShow]=useState(true)
 
+    const options=[
+        {text:"Got It!",id:1},
+    ]
+    const clickHandler=()=>{
+        setShow(false);
+        props.actionProvider.handleGotIt()
+    }
     const buttonOptions=options.map((option)=>(
-        <button key={option.id} onClick={option.handler} className="optionButton">
+        <button key={option.id} onClick={clickHandler} style={{display: show ? 'block' : 'none' }} className="optionButton">
             {option.text}
         </button>
     ))
