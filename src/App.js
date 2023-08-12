@@ -1,7 +1,6 @@
 import './App.css';
 import { Route,Routes,BrowserRouter as Router } from 'react-router-dom';
 import Home from './component/home/Home.js'
-// import Chat from './component/chatbot/chatbot'
 import MessageParser from './component/chatbot/MessageParser';
 import Exit from './component/exit/Exit';
 import ActionProvider from './component/chatbot/ActionProvider';
