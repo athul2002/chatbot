@@ -1,26 +1,23 @@
-import {legacy_createStore as createStore,combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk"
-import { composeWithDevTools } from "redux-devtools-extension"
-import { botReducer } from "./redux/Reducer";
+import {combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import {botReducer} from './redux/Reducer';
+import {configureStore} from '@reduxjs/toolkit';
 const reducer=combineReducers({
     detail:botReducer
 });
+ 
+const persistConfig = {
+    key: 'root',
+    storage
+};
 
-let initialState={
-    details:{
-        name:localStorage.getItem("name")
-        ? JSON.parse(localStorage.getItem("name"))
-        : [],
-        age:localStorage.getItem("age")
-        ? JSON.parse(localStorage.getItem("age"))
-        : [],
-    },
-    
-}
-const middleware=[thunk];
-const store = createStore(
-    reducer,
-    initialState,
-    composeWithDevTools(applyMiddleware(...middleware))
-);
-export default store;
+const persistedReducer = persistReducer(persistConfig, reducer);
+const store = configureStore({
+    reducer: persistedReducer,
+    devTools: process.env.NODE_ENV !== 'production',
+    middleware: [thunk]
+});
+const persistor = persistStore(store);
+export { persistor, store };
